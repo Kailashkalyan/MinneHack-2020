@@ -1,8 +1,11 @@
 #define WIFI_SSID "MHFallback"
 #define WIFI_PASSWORD "bruhsoundeffect#2"
+#define FIREBASE_HOST "cleanse-c7568.firebaseio.com"
+#define FIREBASE_AUTH "yv9o02h6RBiXMPnrpZwdyZdKSfzENSph4MMgp5IH"
 int in1 = 5;
 int in2 = 12;
 #include <ESP8266WiFi.h>
+#include <FirebaseArduino.h>
 int resval = 0;  // holds the value
 int respin = A0; // sensor pin use
 boolean leak = false;
@@ -18,11 +21,13 @@ void setup() {
   Serial.println();
   Serial.print("connected: ");
   Serial.println(WiFi.localIP());
+  
   pinMode(in1,OUTPUT);
   digitalWrite(in1,HIGH);
   pinMode(in2,OUTPUT);
  digitalWrite(in2,HIGH);
  pinMode(A0, INPUT);
+ Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 }
 
  void turnOn() {
@@ -37,18 +42,13 @@ void turnOff() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  turnOn();
-  delay(500);
-  turnOff();
-  delay(500);
   resval = analogRead(A0); //Read data from analog pin and store it to resval variable
- 
-  if (resval<=100)
-  { Serial.println("Water Level: No Leak");
-    leak = false;
-  } 
-  else{ 
-    Serial.println("Water Level: Leak"); 
-    leak = true;
-  } 
+  Firebase.setBool("super/infantderrick/devices/leak", resval>100);
+//  if( resval>100){
+//    Serial.print("T");
+//  }else{
+//    Serial.print("F");
+//  }
+  delay(50);
+
 }
