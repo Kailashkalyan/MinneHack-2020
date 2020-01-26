@@ -1,8 +1,9 @@
 
 #include <ESP8266WiFi.h>
 #include <string>
-
-//dht DHT;
+#include <dht11.h>
+#define DHT11PIN 2
+dht11 DHT11;
 // Set these to run example.
 #define SENSORPIN 4
 #define LIGHTPIN 4
@@ -38,4 +39,10 @@ void loop() {
   Serial.print(cm);
   Serial.print("cm");
   Serial.println();
+  int chk = DHT11.read(DHT11PIN);
+  Serial.print("Temperature = ");
+  Serial.println((DHT11.temperature * 1.8) + 27);
+  Serial.print("Humidity = ");
+  Serial.println(DHT11.humidity);
+  
 }
