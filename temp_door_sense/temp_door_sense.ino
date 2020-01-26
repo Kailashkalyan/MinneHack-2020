@@ -1,13 +1,12 @@
-#include <dht.h>
-#include <TimeLib.h>
+
 #include <ESP8266WiFi.h>
 #include <string>
 
-dht DHT;
+//dht DHT;
 // Set these to run example.
 #define SENSORPIN 4
 #define LIGHTPIN 4
-#define DHT11_PIN 5
+#define DHT11_PIN 
 int trigPin = 5;    // Trigger
 int echoPin = 4;    // Echo
 long duration, cm, inches;
