@@ -39,6 +39,10 @@ void turnOff() {
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
 }
+void interMed(){
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, HIGH);
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -49,6 +53,16 @@ void loop() {
 //  }else{
 //    Serial.print("F");
 //  }
+  float maxTemp = Firebase.getFloat("super/infantderrick/devices/maxTemp");
+  float minTemp = Firebase.getFloat("super/infantderrick/devices/minTemp");
+  float temp = Firebase.getFloat("super/infantderrick/devices/temp");
+  if(maxTemp < temp){
+    turnOff();
+  }else if(temp < minTemp){
+    turnOn();
+  }else{
+    interMed();
+  }
   delay(50);
 
 }
