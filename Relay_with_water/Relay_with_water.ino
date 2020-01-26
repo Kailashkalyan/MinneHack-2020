@@ -1,3 +1,5 @@
+#define WIFI_SSID "MHFallback"
+#define WIFI_PASSWORD "bruhsoundeffect#2"
 int in1 = 5;
 int in2 = 12;
 #include <ESP8266WiFi.h>
@@ -7,12 +9,20 @@ boolean leak = false;
 
 void setup() {
   Serial.begin(115200);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("connecting");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+  Serial.print("connected: ");
+  Serial.println(WiFi.localIP());
   pinMode(in1,OUTPUT);
   digitalWrite(in1,HIGH);
   pinMode(in2,OUTPUT);
  digitalWrite(in2,HIGH);
  pinMode(A0, INPUT);
-  Serial.begin(115200);
 }
 
  void turnOn() {
@@ -40,6 +50,5 @@ void loop() {
   else{ 
     Serial.println("Water Level: Leak"); 
     leak = true;
-  }
-  delay(1000); 
+  } 
 }

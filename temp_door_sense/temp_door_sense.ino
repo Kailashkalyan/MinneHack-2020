@@ -1,4 +1,5 @@
-
+#define WIFI_SSID "MHFallback"
+#define WIFI_PASSWORD "bruhsoundeffect#2"
 #include <ESP8266WiFi.h>
 #include <string>
 #include <dht11.h>
@@ -16,6 +17,15 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   Serial.begin (115200);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("connecting");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+  Serial.print("connected: ");
+  Serial.println(WiFi.localIP());
   //Define inputs and outputs
 }
  
