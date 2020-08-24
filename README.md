@@ -9,7 +9,7 @@ This project involves setting up all the IoT devices to find possible ways to re
 	
 ## Technologies
 Project is created with:
-C++
-Arduino 
-Firebase
+* C++
+* Arduino 
+* Firebase
 	
